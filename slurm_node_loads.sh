@@ -1,6 +1,16 @@
 #!/bin/bash
 # program to print load higher than total cpu 
 
+
+usage(){
+
+echo "Help: \"$(basename "$0") -e \" to send report via email. "
+echo "Help: \"$(basename "$0")  \" will print to stdout and no email sent "
+
+}
+
+report() {
+
 TEMPFILE=$( mktemp --tmpdir=/tmp )
 TEMPLOGFILE=$( mktemp --tmpdir=/tmp )
 SPACE=','
@@ -33,10 +43,27 @@ do
 		fi
 done
 
+}
+
+email(){
 #send email. replace foo@foodomain.com with your email address 
 mail -s "Nodes with High CPULoad `hostname`" foo@foodomain.com < ${TEMPLOGFILE}
+}
 
 #cleanup 
-
+cleanup(){
 rm $TEMPFILE
 rm $TEMPLOGFILE
+}
+
+case $1 in
+   "-e") report > /dev/null
+         email
+         cleanup
+        ;;
+   "-h") usage ;;
+   *)    report
+         cleanup
+        ;;
+esac
+
