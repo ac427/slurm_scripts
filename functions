@@ -2,14 +2,35 @@
 
 # drian node pass $1 nodename $2 reason
 drain_node() {
-scontrol update node=$1 state=drain reason=$2
+
+reason=' '
+for arg in $(seq 2 $#)
+do
+args=$(echo  \$$arg)
+eval reason+=$args
+eval reason+="-"
+done
+reason=$(echo $reason | sed 's/-/ /g')
+
+scontrol update node=$1 state=drain reason="$reason"
+
 }
 
-#resume slurm node 
+#resume slurm node
 resume_node() {
-scontrol update node=$1 state=resume reason=$2
-}
 
+reason=' '
+for arg in $(seq 2 $#)
+do
+args=$(echo  \$$arg)
+eval reason+=$args
+eval reason+="-"
+done
+reason=$(echo $reason | sed 's/-/ /g')
+
+scontrol update node=$1 state=resume reason="$reason"
+
+}
 
 #print job history 
 slurm_job_hist(){
