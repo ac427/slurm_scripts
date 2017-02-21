@@ -1,0 +1,27 @@
+#source this file to get handy commands 
+
+# drian node pass $1 nodename $2 reason
+drain_node() {
+scontrol update node=$1 state=drain reason=$2
+}
+
+#resume slurm node 
+resume_node() {
+scontrol update node=$1 state=resume reason=$2
+}
+
+
+#print job history 
+slurm_job_hist(){
+sacct -j $1  --parsable2 --format=user,job,start,end,node,state
+}
+
+#print pending jobs
+pending_jobs(){
+squeue  -t pd -o '%u - %i - %T - %R' | sort 
+}
+
+# grep to print without comments(ie ^#) in file 
+agrep(){
+grep -v '^\#' $1 | sed '/^$/d'
+}
