@@ -23,7 +23,7 @@ scontrol show node | egrep "NodeName|CPULoad" |
 #awk '{ if ($1 ~ /NodeName/) printf "\n %s,",$1; else if ($1 ~ /CPU/) for (i=1;i<=NF;i++)  printf "%s,",$i }' | tee $TEMPFILE
 
 #IF YOU WANT JUST TOTAL CPU AND LOAD
-awk '{ if ($1 ~ /NodeName/) printf "\n %s,",$1; else if ($1 ~ /CPU/)  printf "%s,%s",$(NF-1),$NF}  END {printf "\n" }' | tee -a $TEMPFILE 
+awk '{ if ($1 ~ /NodeName/) printf "\n %s,",$1; else if ($1 ~ /CPU/)  printf "%s,%s",$(NF-1),$NF}  END {printf "\n" }' | tee -a $TEMPFILE > /dev/null
 
 # ignore the nodes that are Down* state 
 
