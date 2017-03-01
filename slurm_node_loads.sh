@@ -34,8 +34,8 @@ do
 
 	# rounding float to int 
 	intCPULoad=${CPULoad%.*}
-	# incrementing CPUTot+=1.  
-	intCPUTot=$((CPUTot+1))
+	# incrementing CPUTot+=3.  
+	intCPUTot=$((CPUTot+3))
 
 		if [ $intCPULoad -ge $intCPUTot ]
 		then
