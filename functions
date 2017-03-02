@@ -42,7 +42,7 @@ pending_jobs(){
 squeue  -t pd -o '%u - %i - %T - %R' | sort 
 }
 
-# grep to print without comments(ie ^#) in file 
-agrep(){
+# cat without comments(ie ^#) in file 
+aprint(){
 grep -v '^\#' $1 | sed '/^$/d'
 }
